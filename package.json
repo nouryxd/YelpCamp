@@ -1,0 +1,19 @@
+{
+  "name": "yelpcamp",
+  "version": "1.0.0",
+  "description": "This is where I store all the code while going through the YelpCamp project section of the https://www.udemy.com/course/the-web-developer-bootcamp/ course by Colt Steele",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lyx0/YelpCamp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lyx0/YelpCamp/issues"
+  },
+  "homepage": "https://github.com/lyx0/YelpCamp#readme"
+}
