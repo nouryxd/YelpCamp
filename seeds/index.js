@@ -1,22 +1,22 @@
-const mongoose = require('mongoose');
-const Campground = require('../models/campground');
+const mongoose = require("mongoose");
+const Campground = require("../models/campground");
 
-const cities = require('./cities')
-const { places, descriptors } = require('./seedHelpers');
+const cities = require("./cities");
+const { places, descriptors } = require("./seedHelpers");
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect("mongodb://localhost:27017/yelp-camp", {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
 });
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'Connection refused:'));
-db.once('open', () => {
-    console.log('Connected to database');
+db.on("error", console.error.bind(console, "Connection refused:"));
+db.once("open", () => {
+    console.log("Connected to database");
 });
 
-const sample = array => array[Math.floor(Math.random() * array.length)];
+const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
     await Campground.deleteMany({});
@@ -26,14 +26,15 @@ const seedDB = async () => {
         const camp = new Campground({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
-            image: 'https://source.unsplash.com/collection/483251',
-            description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt enim accusamus mollitia tenetur doloremque adipisci voluptatibus officia placeat, esse ab deleniti assumenda nobis, non, eos provident illum amet illo nostrum.',
+            image: "https://source.unsplash.com/collection/483251",
+            description:
+                "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt enim accusamus mollitia tenetur doloremque adipisci voluptatibus officia placeat, esse ab deleniti assumenda nobis, non, eos provident illum amet illo nostrum.",
             price: price,
-        })
-        await camp.save()
+        });
+        await camp.save();
     }
-}
+};
 
 seedDB().then(() => {
     mongoose.connection.close();
-})
+});
