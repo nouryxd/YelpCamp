@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path')
 const mongoose = require('mongoose');
 const Campground = require('./models/campground');
+const methodOverride = require('method-override');
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
@@ -28,6 +29,9 @@ app.set('views', path.join(__dirname, 'views'))
 // POST request
 app.use(express.urlencoded({extended: true}))
 
+// Enables us to use more than GET and POST in
+// a html request. 
+app.use(methodOverride('_method'));
 
 app.get('/', (req, res) => {
     res.render('home')
@@ -54,6 +58,17 @@ app.post('/campgrounds', async(req, res) => {
     res.redirect(`/campgrounds/${campground._id}`)
 })
 
+app.get('/campgrounds/:id/edit', async(req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findById(id);
+    res.render('campgrounds/edit', { campground });
+})
+
+app.put('/campgrounds/:id', async (req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findByIdAndUpdate(id, {...req.body.campground}, {useFindAndModify: false}) 
+    res.redirect(`/campgrounds/${campground._id}`)
+})
 
 app.listen(8080, () => {
     console.log('Listening on port 8080');
