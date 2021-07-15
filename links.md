@@ -25,6 +25,9 @@
 - method-override
   - https://www.npmjs.com/package/method-override
 
+- joi
+  - https://joi.dev/api/?v=17.2.1
+
 ## Tooling
 - Nodemon
   - https://nodemon.io/
