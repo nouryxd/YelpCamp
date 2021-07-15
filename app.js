@@ -57,10 +57,14 @@ app.get("/campgrounds/:id", async (req, res) => {
     res.render("campgrounds/show", { campground });
 });
 
-app.post("/campgrounds", async (req, res) => {
+app.post("/campgrounds", async (req, res, next) => {
+    try {
     const campground = new Campground(req.body.campground);
     await campground.save();
     res.redirect(`/campgrounds/${campground._id}`);
+    } catch (e) {
+        next(e);
+    }
 });
 
 app.get("/campgrounds/:id/edit", async (req, res) => {
@@ -85,6 +89,12 @@ app.delete("/campgrounds/:id", async (req, res) => {
     // console.log(campground)
     res.redirect("/campgrounds");
 });
+
+// Really basic error handler that we will hit at 
+// the moment only from app.get new post
+app.use((err, req, res, next) => {
+    res.send('Something went wrong >:(')
+})
 
 app.listen(8080, () => {
     console.log("Listening on port 8080");
