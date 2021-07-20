@@ -154,6 +154,16 @@ app.post(
     })
 );
 
+app.delete(
+    "/campgrounds/:id/reviews/:reviewId",
+    catchAsync(async (req, res) => {
+        const { id, reviewId } = req.params;
+        await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+        await Review.findByIdAndDelete(reviewId);
+        res.redirect(`/campgrounds/${id}`);
+    })
+);
+
 // If no other specified url was hit this
 // will catch every path and send a 404 message
 app.all("*", (req, res, next) => {
