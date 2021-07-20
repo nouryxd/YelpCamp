@@ -28,7 +28,7 @@ module.exports = [
         growth_from_2000_to_2013: "-6.1%",
         latitude: 41.8781136,
         longitude: -87.6297982,
-        population: "2718782",
+        population: "2718782", 
         rank: "3",
         state: "Illinois",
     },
