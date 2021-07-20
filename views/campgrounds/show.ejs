@@ -34,5 +34,11 @@
             </div>
             <button class="btn btn-success">Submit review</button>
         </form>
+
+        <% for (let review of campground.reviews) {%>
+        <div class="mb-3">
+            <p>*<%= review.rating %> <%= review.body %></p>
+        </div>
+        <% } %>
     </div>
 </div>
