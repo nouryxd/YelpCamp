@@ -16,8 +16,8 @@ const Campground = require("./models/campground");
 const Review = require("./models/review");
 
 // Routes
-const campgrounds = require('./routes/campgrounds')
-
+const campgrounds = require("./routes/campgrounds");
+const reviews = require("./routes/reviews");
 
 const validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
@@ -62,14 +62,11 @@ app.use(express.urlencoded({ extended: true }));
 // a html request.
 app.use(methodOverride("_method"));
 
-app.use('/campgrounds', campgrounds)
-
+app.use("/campgrounds", campgrounds);
 
 app.get("/", (req, res) => {
     res.render("home");
 });
-
-
 
 app.post(
     "/campgrounds/:id/reviews",
@@ -107,7 +104,7 @@ app.use((err, req, res, next) => {
     if (!err.message) err.message = "Oh no, something went wrong :(";
     res.status(statusCode).render("error", { err });
 });
- 
+
 app.listen(8080, () => {
     console.log("Listening on port 8080");
 });
