@@ -86,12 +86,23 @@ app.all("*", (req, res, next) => {
 
 // Really basic error handler that we will hit at
 // the moment only from app.get new post
-app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if (!err.message) err.message = "Oh no, something went wrong :(";
-    res.status(statusCode).render("error", { err });
-});
+// app.use((err, req, res, next) => {
+//     const { statusCode = 500 } = err;
+//     if (!err.message) err.message = "Oh no, something went wrong :(";
+//     res.status(statusCode).render("error", { err });
+// });
 
+app.use((err, req, res, next)=>{
+    const {statusCode = 500} = err;
+
+    if(err){
+        req.flash('error', "Campground not found");
+        return res.redirect(`/campgrounds`);
+    }
+
+    if(!err.message) err.message = "Something went wrong!";
+    res.status(statusCode).render('error',{err});
+})
 app.listen(8080, () => {
     console.log("Listening on port 8080");
 });
