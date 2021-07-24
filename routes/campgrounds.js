@@ -7,7 +7,6 @@ const ExpressError = require("../utils/ExpressError");
 
 // Models
 const Campground = require("../models/campground");
-// const Review = require("./models/review");
 
 const { campgroundSchema } = require("../schemas");
 const validateCampground = (req, res, next) => {
