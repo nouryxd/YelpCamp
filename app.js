@@ -2,11 +2,12 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const ejsMate = require("ejs-mate");
-const session = require("express-session");
 
 // Helpers
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 // Routes
 const campgrounds = require("./routes/campgrounds");
@@ -58,6 +59,16 @@ const sessionConfig = {
     },
 };
 app.use(session(sessionConfig));
+
+// Flashes messages when something happened
+// (review deleted, edited whatever)
+app.use(flash());
+
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
 
 // Routes
 app.use("/campgrounds", campgrounds);
