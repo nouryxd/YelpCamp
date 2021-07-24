@@ -15,6 +15,7 @@ mongoose.connect("mongodb://localhost:27017/yelp-camp", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
 });
 
 const db = mongoose.connection;
@@ -42,6 +43,8 @@ app.use(express.urlencoded({ extended: true }));
 // Enables us to use more than GET and POST in
 // a html request.
 app.use(methodOverride("_method"));
+
+app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
 app.use("/campgrounds", campgrounds);
