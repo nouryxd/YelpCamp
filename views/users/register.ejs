@@ -1,4 +1,4 @@
-<% layout('layouts/boilerplate') %>
+<% layout('layouts/boilerplate')%>
 <h1>Register</h1>
 <form action="/register" method="POST" class="validated-form" novalidate>
   <div class="mb-3">
@@ -11,18 +11,14 @@
       required
     />
     <div class="valid-feedback">Looks good!</div>
+  </div>
   <div class="mb-3">
     <label class="form-label" for="email">Email</label>
-    <input
-      class="form-control"
-      type="email"
-      id="email"
-      name="email"
-      required
-    />
+    <input class="form-control" type="email" id="email" name="email" required />
     <div class="valid-feedback">Looks good!</div>
+  </div>
   <div class="mb-3">
-    <label class="form-label" for="password">password</label>
+    <label class="form-label" for="password">Password</label>
     <input
       class="form-control"
       type="password"
