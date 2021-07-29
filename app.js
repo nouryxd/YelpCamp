@@ -81,6 +81,13 @@ app.use((req, res, next) => {
   next();
 });
 
+// Passport fake route
+app.get("/fakeuser", async (req, res) => {
+  const user = new User({ email: "colt@gmail.com", username: "colttt" });
+  const newUser = await User.register(user, "chicken");
+  res.send(newUser);
+});
+
 // Routes
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
