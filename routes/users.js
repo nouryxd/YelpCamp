@@ -5,6 +5,9 @@ const passport = require("passport");
 const User = require("../models/user");
 
 router.get("/register", (req, res) => {
+    if (req.isAuthenticated()) {
+        return res.redirect("/campgrounds");
+    }
     res.render("users/register");
 });
 
@@ -31,6 +34,9 @@ router.post(
 );
 
 router.get("/login", (req, res) => {
+    if (req.isAuthenticated()) {
+        return res.redirect("/campgrounds");
+    }
     res.render("users/login");
 });
 
@@ -39,7 +45,11 @@ router.post(
     passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }),
     (req, res) => {
         req.flash("success", "Welcome back");
-        res.redirect("/campgrounds");
+        const redirectUrl = req.session.returnTo;
+        if (!redirectUrl) {
+            return res.redirect("/campgrounds");
+        }
+        res.redirect(redirectUrl);
     }
 );
 
