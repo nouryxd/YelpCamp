@@ -18,16 +18,16 @@ const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
 });
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection refused:"));
 db.once("open", () => {
-  console.log("Connected to database");
+    console.log("Connected to database");
 });
 
 const app = express();
@@ -53,14 +53,14 @@ app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname, "public")));
 
 const sessionConfig = {
-  secret: "placeholder",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    httpOnly: true,
-    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
-  },
+    secret: "placeholder",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
 };
 app.use(session(sessionConfig));
 
@@ -77,16 +77,17 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-  res.locals.success = req.flash("success");
-  res.locals.error = req.flash("error");
-  next();
+    res.locals.currentUser = req.user;
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
 });
 
 // Passport fake route
 app.get("/fakeuser", async (req, res) => {
-  const user = new User({ email: "colt@gmail.com", username: "colttt" });
-  const newUser = await User.register(user, "chicken");
-  res.send(newUser);
+    const user = new User({ email: "colt@gmail.com", username: "colttt" });
+    const newUser = await User.register(user, "chicken");
+    res.send(newUser);
 });
 
 // Routes
@@ -95,26 +96,26 @@ app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 
 app.get("/", (req, res) => {
-  res.render("home");
+    res.render("home");
 });
 
 // If no other specified url was hit this
 // will catch every path and send a 404 message
 app.all("*", (req, res, next) => {
-  next(new ExpressError("Page Not Found", 404));
+    next(new ExpressError("Page Not Found", 404));
 });
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500 } = err;
+    const { statusCode = 500 } = err;
 
-  if (err) {
-    req.flash("error", "Campground not found");
-    return res.redirect(`/campgrounds`);
-  }
+    if (err) {
+        req.flash("error", "Campground not found");
+        return res.redirect(`/campgrounds`);
+    }
 
-  if (!err.message) err.message = "Something went wrong!";
-  res.status(statusCode).render("error", { err });
+    if (!err.message) err.message = "Something went wrong!";
+    res.status(statusCode).render("error", { err });
 });
 app.listen(8080, () => {
-  console.log("Listening on port 8080");
+    console.log("Listening on port 8080");
 });
