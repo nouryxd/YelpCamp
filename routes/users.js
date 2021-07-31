@@ -4,59 +4,25 @@ const catchAsync = require("../utils/catchAsync");
 const passport = require("passport");
 const User = require("../models/user");
 
-router.get("/register", (req, res) => {
-    if (req.isAuthenticated()) {
-        return res.redirect("/campgrounds");
-    }
-    res.render("users/register");
-});
+const users = require("../controllers/users");
 
-router.post(
-    "/register",
-    catchAsync(async (req, res, next) => {
-        try {
-            const { email, username, password } = req.body;
-            const user = new User({ email, username });
-            const registeredUser = await User.register(user, password);
-            req.login(registeredUser, (err) => {
-                if (err) return next(err);
-                req.login(registeredUser, (err) => {
-                    if (err) return next(err);
-                    req.flash("success", "Welcome to Yelp Camp!");
-                    res.redirect("/campgrounds");
-                });
-            });
-        } catch (e) {
-            req.flash("error", e.message);
-            res.redirect("register");
-        }
-    })
-);
+// Show the register form
+router.get("/register", users.renderRegister);
 
-router.get("/login", (req, res) => {
-    if (req.isAuthenticated()) {
-        return res.redirect("/campgrounds");
-    }
-    res.render("users/login");
-});
+// Register a new user
+router.post("/register", catchAsync(users.register));
 
+// Show the login form
+router.get("/login", users.renderLogin);
+
+// Login a user
 router.post(
     "/login",
     passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }),
-    (req, res) => {
-        req.flash("success", "Welcome back");
-        const redirectUrl = req.session.returnTo;
-        if (!redirectUrl) {
-            return res.redirect("/campgrounds");
-        }
-        res.redirect(redirectUrl);
-    }
+    users.login
 );
 
-router.get("/logout", (req, res) => {
-    req.logout();
-    req.flash("success", "Logged out");
-    res.redirect("/campgrounds");
-});
+// Log a user out
+router.get("/logout", users.logout);
 
 module.exports = router;
