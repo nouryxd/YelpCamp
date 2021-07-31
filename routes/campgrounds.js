@@ -31,7 +31,8 @@ router.post("/", isLoggedIn, validateCampground, catchAsync(campgrounds.createCa
 router.get("/:id", catchAsync(campgrounds.showCampground));
 
 // Show the campground edit form
-router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));
+// http://localhost:8080/campgrounds/6105d57ec33a244128a2bdaa/edit
+http: router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));
 
 // Update a campground
 router.put(
