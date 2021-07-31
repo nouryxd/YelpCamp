@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
+// Controllers
+const campgrounds = require("../controllers/campgrounds");
+
 // Helpers
 const catchAsync = require("../utils/catchAsync");
 
@@ -12,17 +15,9 @@ const { isAuthor } = require("../middleware");
 // Models
 const Campground = require("../models/campground");
 
-router.get(
-    "/",
-    catchAsync(async (req, res) => {
-        const campgrounds = await Campground.find({});
-        res.render("campgrounds/index", { campgrounds });
-    })
-);
+router.get("/", catchAsync(campgrounds.index));
 
-router.get("/new", isLoggedIn, (req, res) => {
-    res.render("campgrounds/new");
-});
+router.get("/new", isLoggedIn, campgrounds.new);
 
 router.get(
     "/:id",
