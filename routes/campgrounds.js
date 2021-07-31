@@ -3,7 +3,6 @@ const router = express.Router();
 
 // Helpers
 const catchAsync = require("../utils/catchAsync");
-const ExpressError = require("../utils/ExpressError");
 
 // Middleware
 const { isLoggedIn } = require("../middleware");
@@ -12,8 +11,6 @@ const { isAuthor } = require("../middleware");
 
 // Models
 const Campground = require("../models/campground");
-
-const { campgroundSchema } = require("../schemas");
 
 router.get(
     "/",
