@@ -12,9 +12,6 @@ const { isLoggedIn } = require("../middleware");
 const { validateCampground } = require("../middleware");
 const { isAuthor } = require("../middleware");
 
-// Models
-const Campground = require("../models/campground");
-
 // Index
 // http://localhost:8080/
 router.get("/", catchAsync(campgrounds.index));
