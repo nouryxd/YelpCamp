@@ -7,15 +7,15 @@ module.exports.index = async (req, res) => {
     res.render("campgrounds/index", { campgrounds });
 };
 
-// Create a new campground
+// Render the new campground form
 // http://localhost:8080/campgrounds/new
 module.exports.renderNewForm = (req, res) => {
     res.render("campgrounds/new");
 };
 
 // View a specific campground
-// http://localhost:8080/campgrounds/61035cc80b22ffed75596f00
-module.exports.view = async (req, res) => {
+//localhost:8080/campgrounds/61035cc80b22ffed75596f00
+http: module.exports.showCampground = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id)
         .populate({
@@ -32,4 +32,13 @@ module.exports.view = async (req, res) => {
     }
     // console.log(campground);
     res.render("campgrounds/show", { campground });
+};
+
+// Create a new campground
+module.exports.createCampground = async (req, res, next) => {
+    const campground = new Campground(req.body.campground);
+    campground.author = req.user._id;
+    await campground.save();
+    req.flash("success", "Successfully created a new campground");
+    res.redirect(`/campgrounds/${campground._id}`);
 };

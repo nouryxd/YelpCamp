@@ -15,44 +15,20 @@ const { isAuthor } = require("../middleware");
 // Models
 const Campground = require("../models/campground");
 
+// Index
+// http://localhost:8080/
 router.get("/", catchAsync(campgrounds.index));
 
-router.get("/new", isLoggedIn, campgrounds.new);
+// Render the  new campground form
+// http://localhost:8080/campgrounds/new
+router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 
-router.get(
-    "/:id",
-    catchAsync(async (req, res) => {
-        const { id } = req.params;
-        const campground = await Campground.findById(id)
-            .populate({
-                path: "reviews",
-                populate: {
-                    path: "author",
-                },
-            })
-            .populate("author");
-        // console.log(campground);
-        if (!campground) {
-            req.flash("error", "Campground not found");
-            return res.redirect("/campgrounds");
-        }
-        // console.log(campground);
-        res.render("campgrounds/show", { campground });
-    })
-);
+// Create a new Campground
+router.post("/", isLoggedIn, validateCampground, catchAsync(campgrounds.createCampground));
 
-router.post(
-    "/",
-    isLoggedIn,
-    validateCampground,
-    catchAsync(async (req, res, next) => {
-        const campground = new Campground(req.body.campground);
-        campground.author = req.user._id;
-        await campground.save();
-        req.flash("success", "Successfully created a new campground");
-        res.redirect(`/campgrounds/${campground._id}`);
-    })
-);
+// View a specific campground
+// http://localhost:8080/campgrounds/61035cc80b22ffed75596f00
+router.get("/:id", catchAsync(campgrounds.showCampground));
 
 router.get(
     "/:id/edit",
