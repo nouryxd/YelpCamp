@@ -9,6 +9,7 @@ const { validateReview } = require("../middleware");
 const { isLoggedIn } = require("../middleware");
 const { isReviewAuthor } = require("../middleware");
 
+// Controller
 const reviews = require("../controllers/reviews");
 
 // Create a new review

@@ -1,14 +1,12 @@
 const Campground = require("../models/campground");
 
 // Index
-// http://localhost:8080/
 module.exports.index = async (req, res) => {
     const campgrounds = await Campground.find({});
     res.render("campgrounds/index", { campgrounds });
 };
 
 // Render the new campground form
-// http://localhost:8080/campgrounds/new
 module.exports.renderNewForm = (req, res) => {
     res.render("campgrounds/new");
 };
@@ -23,7 +21,6 @@ module.exports.createCampground = async (req, res, next) => {
 };
 
 // View a specific campground
-// http://localhost:8080/campgrounds/61035cc80b22ffed75596f00
 http: module.exports.showCampground = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id)
@@ -44,7 +41,6 @@ http: module.exports.showCampground = async (req, res) => {
 };
 
 // Show campground edit form
-// http://localhost:8080/campgrounds/61035cc80b22ffed75596f00/edit
 module.exports.renderEditForm = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
