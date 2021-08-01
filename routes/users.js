@@ -6,22 +6,24 @@ const User = require("../models/user");
 
 const users = require("../controllers/users");
 
-// Show the register form
-router.get("/register", users.renderRegister);
+// Register
+router
+    .route("/register")
+    // Show the register form
+    .get(users.renderRegister)
+    // Register a new user
+    .post(catchAsync(users.register));
 
-// Register a new user
-router.post("/register", catchAsync(users.register));
-
-// Show the login form
-router.get("/login", users.renderLogin);
-
-// Login a user
-router.post(
-    "/login",
-    passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }),
-    users.login
-);
-
+// Login
+router
+    .route("/login")
+    // Show the login form
+    .get(users.renderLogin)
+    // Login a user
+    .post(
+        passport.authenticate("local", { failureFlash: true, failureRedirect: "/login" }),
+        users.login
+    );
 // Log a user out
 router.get("/logout", users.logout);
 
