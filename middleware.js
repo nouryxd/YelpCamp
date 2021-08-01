@@ -4,6 +4,7 @@ const ExpressError = require("./utils/ExpressError");
 const { reviewSchema } = require("./schemas.js");
 const Review = require("./models/review");
 
+// Checks if the current user is logged in
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         // store the url theyre requesting
@@ -13,6 +14,8 @@ module.exports.isLoggedIn = (req, res, next) => {
     next();
 };
 
+// Validates the new/edit campground form if all fields
+// are properly filled out.
 module.exports.validateCampground = (req, res, next) => {
     const { error } = campgroundSchema.validate(req.body);
     if (error) {
@@ -23,6 +26,8 @@ module.exports.validateCampground = (req, res, next) => {
         next();
     }
 };
+
+// Checks if the current user is the author of the campground.
 module.exports.isAuthor = async (req, res, next) => {
     const { id } = req.params;
     const campground = await Campground.findById(id);
@@ -32,6 +37,8 @@ module.exports.isAuthor = async (req, res, next) => {
     }
     next();
 };
+
+// Checks if the current user is the author of a review.
 module.exports.isReviewAuthor = async (req, res, next) => {
     const { id, reviewId } = req.params;
     const review = await Review.findById(reviewId);
@@ -42,6 +49,7 @@ module.exports.isReviewAuthor = async (req, res, next) => {
     next();
 };
 
+// Validates the review form (input and rating slider).
 module.exports.validateReview = (req, res, next) => {
     const { error } = reviewSchema.validate(req.body);
     if (error) {
