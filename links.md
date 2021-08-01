@@ -41,7 +41,11 @@
     -   http://www.passportjs.org/
 
 -   Starability
+
     -   https://github.com/LunarLogic/starability
+
+-   multer
+    -   https://github.com/expressjs/multer
 
 ## Tooling
 
