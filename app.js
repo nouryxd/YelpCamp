@@ -78,10 +78,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-    if (!["/login", "/register", "/"].includes(req.originalUrl)) {
-        // console.log(req.originalUrl);
-        req.session.returnTo = req.originalUrl;
-    }
+    console.log(req.session);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
@@ -115,13 +112,7 @@ app.all("*", (req, res, next) => {
 // Flashes the error message if there was one
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
-
-    if (err) {
-        req.flash("error", "Campground not found");
-        return res.redirect(`/campgrounds`);
-    }
-
-    if (!err.message) err.message = "Something went wrong!";
+    if (!err.message) err.message = "Oh No, Something Went Wrong!";
     res.status(statusCode).render("error", { err });
 });
 
