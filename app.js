@@ -17,6 +17,7 @@ const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
+// MongoDB
 mongoose.connect("mongodb://localhost:27017/yelp-camp", {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -52,6 +53,7 @@ app.use(methodOverride("_method"));
 
 app.use(express.static(path.join(__dirname, "public")));
 
+// Session
 const sessionConfig = {
     secret: "placeholder",
     resave: false,
@@ -72,7 +74,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -99,6 +100,8 @@ app.use("/", userRoutes);
 app.use("/campgrounds", campgroundRoutes);
 app.use("/campgrounds/:id/reviews", reviewRoutes);
 
+// Index page, at the moment only contains a link
+// to all campgrounds.
 app.get("/", (req, res) => {
     res.render("home");
 });
@@ -109,6 +112,7 @@ app.all("*", (req, res, next) => {
     next(new ExpressError("Page Not Found", 404));
 });
 
+// Flashes the error message if there was one
 app.use((err, req, res, next) => {
     const { statusCode = 500 } = err;
 
@@ -120,6 +124,7 @@ app.use((err, req, res, next) => {
     if (!err.message) err.message = "Something went wrong!";
     res.status(statusCode).render("error", { err });
 });
+
 app.listen(8080, () => {
     console.log("Listening on port 8080");
 });
