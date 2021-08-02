@@ -45,7 +45,16 @@
     -   https://github.com/LunarLogic/starability
 
 -   multer
+
     -   https://github.com/expressjs/multer
+
+-   cloudinary
+
+    -   https://www.npmjs.com/package/cloudinary
+
+-   multer-storage-cloudinary
+
+    -   https://www.npmjs.com/package/multer-storage-cloudinary
 
 ## Tooling
 
