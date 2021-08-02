@@ -21,7 +21,7 @@ module.exports.createCampground = async (req, res, next) => {
 };
 
 // View a specific campground
-http: module.exports.showCampground = async (req, res) => {
+module.exports.showCampground = async (req, res) => {
     const { id } = req.params;
     const campground = await Campground.findById(id)
         .populate({
