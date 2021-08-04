@@ -32,20 +32,20 @@
                 />
                 <div class="valid-feedback">Looks good!</div>
             </div>
-
-            <input type="file" name="image" id="" multiple />
-            <!-- <div class="mb-3">
-                <label class="form-label" for="image">Image Url</label>
+            <div class="mb-3">
+                <label for="formFileMultiple" class="form-label">Upload Images</label>
                 <input
+                    type="file"
                     class="form-control"
-                    type="text"
-                    id="image"
-                    name="campground[image]"
+                    id="formFileMultiple"
+                    name="image"
+                    multiple
                     required
                 />
-                <div class="valid-feedback">Looks good!</div>
-            </div> -->
-
+                <div class="invalid-feedback">
+                    This campground would look much better with a picture.
+                </div>
+            </div>
             <div class="mb-3">
                 <label class="form-label" for="price">Campground Price</label>
                 <div class="input-group">
