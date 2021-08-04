@@ -56,6 +56,9 @@
 
     -   https://www.npmjs.com/package/multer-storage-cloudinary
 
+-   mapbox
+    -   https://www.mapbox.com
+
 ## Tooling
 
 -   Nodemon
