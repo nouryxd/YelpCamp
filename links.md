@@ -58,6 +58,8 @@
 
 -   mapbox
     -   https://www.mapbox.com
+-   mapbox-sdk
+    -   https://github.com/mapbox/mapbox-sdk-js
 
 ## Tooling
 
