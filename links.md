@@ -89,3 +89,7 @@
 ### Random Unsplash Images I like a lot
 
 -   https://unsplash.com/photos/iqPg95xF6Z8
+
+### Placeholder image
+
+    - https://i.nuuls.com/0OxMU.png
