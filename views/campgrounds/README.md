@@ -13,4 +13,4 @@ to work add this to vscode settings
 
     "html.validate.scripts": false
 
-also DO NOT TOUCH THE SCRIPT
+also DO NOT TOUCH THE SCRIPT IT LOOKS WRONG BUT IT ISNT IT WILL JUST BREAK
