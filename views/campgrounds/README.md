@@ -12,3 +12,5 @@ For in show.ejs
 to work add this to vscode settings
 
     "html.validate.scripts": false
+
+also DO NOT TOUCH THE SCRIPT
