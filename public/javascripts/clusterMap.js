@@ -43,7 +43,7 @@ map.on("load", () => {
                 "#e76f51",
                 // "#f28cb1",
             ],
-            "circle-radius": ["step", ["get", "point_count"], 20, 10, 30, 30, 40],
+            "circle-radius": ["step", ["get", "point_count"], 15, 10, 25, 30, 30],
         },
     });
 
