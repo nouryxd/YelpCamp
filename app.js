@@ -68,23 +68,22 @@ app.use(mongoSanitize());
 
 // Session
 
-const sessionSecret = process.env.SESSION_SECRET;
-const store = MongoStore.create({
-    mongoUrl: dbUri,
+const secret = process.env.SESSION_SECRET;
+
+const store = new MongoDBStore({
+    url: dbUrl,
+    secret,
     touchAfter: 24 * 60 * 60,
-    crypto: {
-        secret: secret,
-    },
 });
 
 store.on("error", function (e) {
-    console.log("Session store error", e);
+    console.log("SESSION STORE ERROR", e);
 });
 
 const sessionConfig = {
     store,
-    name: "5dLueyAYG8ed2pfFvBodRPL6n689",
-    secret: sessionSecret,
+    name: "session",
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
