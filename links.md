@@ -76,6 +76,10 @@
 
     -   https://www.npmjs.com/package/helmet
 
+-   connect-mongo
+
+    -   https://www.npmjs.com/package/connect-mongo
+
 ## Tooling
 
 -   Nodemon
