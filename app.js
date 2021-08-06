@@ -70,7 +70,7 @@ app.use(mongoSanitize());
 
 const secret = process.env.SESSION_SECRET;
 
-const store = new MongoDBStore({
+const store = new MongoStore({
     url: dbUrl,
     secret,
     touchAfter: 24 * 60 * 60,
