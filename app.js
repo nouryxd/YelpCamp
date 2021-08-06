@@ -25,7 +25,7 @@ const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
 // const dbUri = "mongodb://localhost:27017/yelp-camp";
-const dbUri = process.env.MONGO_URI;
+const dbUri = process.env.DB_URI || "mongodb://localhost:27017/yelp-camp";
 
 // MongoDB
 mongoose.connect(dbUri, {
@@ -193,6 +193,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error", { err });
 });
 
+const port = process.env.PORT || 8080;
 app.listen(8080, () => {
-    console.log("Listening on port 8080");
+    console.log(`Listening on port ${port}`);
 });
