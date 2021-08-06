@@ -72,6 +72,10 @@
 
     -   https://www.npmjs.com/package/sanitize-html
 
+-   helmet
+
+    -   https://www.npmjs.com/package/helmet/v/2.2.0
+
 ## Tooling
 
 -   Nodemon
