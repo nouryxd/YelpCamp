@@ -15,6 +15,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user");
+const mongoSanitize = require("express-mongo-sanitize");
 
 // Routes
 const userRoutes = require("./routes/users");
@@ -57,6 +58,9 @@ app.use(methodOverride("_method"));
 
 app.use(express.static(path.join(__dirname, "public")));
 
+// Sanitize input
+app.use(mongoSanitize());
+
 // Session
 const sessionConfig = {
     secret: "placeholder",
@@ -82,6 +86,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
+    console.log(req.query);
     // console.log(req.session);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash("success");
