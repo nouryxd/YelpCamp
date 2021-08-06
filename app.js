@@ -26,8 +26,8 @@ const reviewRoutes = require("./routes/reviews");
 const dbUri = process.env.MONGO_URI;
 
 // MongoDB
-// mongoose.connect("mongodb://localhost:27017/yelp-camp", {
-mongoose.connect(dbUri, {
+mongoose.connect("mongodb://localhost:27017/yelp-camp", {
+    // mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
