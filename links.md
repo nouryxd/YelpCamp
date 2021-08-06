@@ -68,6 +68,10 @@
 
     -   https://www.npmjs.com/package/express-mongo-sanitize
 
+-   sanitize-html
+
+    -   https://www.npmjs.com/package/sanitize-html
+
 ## Tooling
 
 -   Nodemon
