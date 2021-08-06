@@ -28,7 +28,7 @@ const seedDB = async () => {
             // #############################################
             // My UserID, replace it when reseeding users.
             // #############################################
-            author: "61034da632f78699ea75db22",
+            author: "610cb766fefc7b00157ccfcc",
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             description:
