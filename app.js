@@ -24,12 +24,11 @@ const userRoutes = require("./routes/users");
 const campgroundRoutes = require("./routes/campgrounds");
 const reviewRoutes = require("./routes/reviews");
 
-const dbUri = "mongodb://localhost:27017/yelp-camp";
-// const dbUri = process.env.MONGO_URI;
+// const dbUri = "mongodb://localhost:27017/yelp-camp";
+const dbUri = process.env.MONGO_URI;
 
 // MongoDB
 mongoose.connect(dbUri, {
-    // mongoose.connect(dbUri, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -69,11 +68,12 @@ app.use(mongoSanitize());
 
 // Session
 
+const sessionSecret = process.env.SESSION_SECRET;
 const store = MongoStore.create({
     mongoUrl: dbUri,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: "placeholder",
+        secret: secret,
     },
 });
 
@@ -84,7 +84,7 @@ store.on("error", function (e) {
 const sessionConfig = {
     store,
     name: "5dLueyAYG8ed2pfFvBodRPL6n689",
-    secret: "placeholder",
+    secret: sessionSecret,
     resave: false,
     saveUninitialized: true,
     cookie: {
