@@ -57,9 +57,16 @@
     -   https://www.npmjs.com/package/multer-storage-cloudinary
 
 -   mapbox
+
     -   https://www.mapbox.com
+
 -   mapbox-sdk
+
     -   https://github.com/mapbox/mapbox-sdk-js
+
+-   express-mongo-sanitize
+
+    -   https://www.npmjs.com/package/express-mongo-sanitize
 
 ## Tooling
 
