@@ -74,7 +74,7 @@
 
 -   helmet
 
-    -   https://www.npmjs.com/package/helmet/v/2.2.0
+    -   https://www.npmjs.com/package/helmet
 
 ## Tooling
 
